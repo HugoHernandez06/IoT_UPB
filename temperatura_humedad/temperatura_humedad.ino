@@ -4,7 +4,6 @@
 ClosedCube_HDC1080 sensor;
 void prunning(double temperature,double humedad);
 
-float n;
 double temperature;
 double humedad;
 
