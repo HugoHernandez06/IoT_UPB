@@ -2,33 +2,37 @@
 #include <Wire.h>
 
 ClosedCube_HDC1080 sensor;
+void prunning(double temperature,double humedad);
+
 float n;
 double temperature;
 double humedad;
 
 void setup(){
-sensor.begin(0x40);
-Serial.begin(9600);
+  sensor.begin(0x40);
+  Serial.begin(9600);
 }
 
 void loop(){
-  float avgTemp = 0;
-  float avgHum = 0;
-  n = random(10,20);
-  for(int i=0;i<n;i++){
-    temperature = sensor.readTemperature();
-    humedad = sensor.readHumidity();
+  temperature = sensor.readTemperature();
+  humedad = sensor.readHumidity();
+  prunning(temperature,humedad);
+  delay(2000);
+}
+
+void prunning(double temperature,double humedad){
+  double avgTemp;
+  double avgHum;
+  int num = 15;
+  for(int i=0;i<num;i++){
     avgTemp = temperature + avgTemp;
     avgHum = humedad + avgHum;
   }
-  temperature = avgTemp/n;
-  humedad = avgHum/n;
-  Serial.print("Numero de pruebas = ");
-  Serial.print(n);
+  temperature = avgTemp/num;
+  humedad = avgHum/num;
   Serial.print(" Prom Temperatura = ");
   Serial.print(temperature);
   Serial.print("°C Prom Humedad = ");
   Serial.print(humedad);
-  Serial.print("%\n");
-  delay(2000);
+  Serial.print("\n");
 }
