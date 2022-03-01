@@ -11,6 +11,7 @@ SoftwareSerial ss(2, 0);
 
 void prunningTemp(double temperature,double humedad);
 void prunning(float als);
+void smart_delay(int t);
 
 double temperature;
 double humedad;
@@ -118,4 +119,7 @@ void prunning(float als){
   als = avgLux/num;
   Serial.print("Lux: "); 
   Serial.println(als);
+}
+void smart_delay(int t){
+  
 }
