@@ -13,9 +13,10 @@ void prunningTemp(double temperature,double humedad);
 void prunning(float als);
 void smart_delay(int t);
 
-double temperature;
-double humedad;
-float als;
+double temperature=0;
+double humedad=0;
+float als=0;
+int estado=0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -28,19 +29,48 @@ void setup() {
   // Preguntar *
   Serial.begin(115200);
   ss.begin(9600);
+  Serial.println("Iniciando Programa");
+  estado = 1;
+  delay(1000);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  sensorTempHum();
-  delay(2000);
-  prunningTemp(temperature,humedad);
-  delay(2000);
-  sensorRadiacionSolar();
-  delay(2000);
-  prunning(als);
-  delay(2000);
-  sensorGPS();
+  switch(estado){
+    case 1:
+      Serial.println("1. Sensor Humedad y Temperatura");
+      sensorTempHum();
+      prunningTemp(temperature,humedad);
+      estado = 2;
+      delay(1000);
+    break;
+    case 2:
+      Serial.println("2. Radiación Solar");
+      sensorRadiacionSolar();
+      prunning(als);
+      estado = 3;
+      delay(1000);
+    break;
+    case 3:
+      Serial.println("3. Sensor GPS");
+      sensorGPS();
+      estado = 4;
+      delay(1000);
+    break;
+    case 4:
+      Serial.println("4. Haciendo Bunding");
+      estado = 5;
+      delay(1000);
+    break;
+    case 5:
+      Serial.println("5. Durmiendo");
+      estado = 1;
+      delay(3000);
+    break;
+    default:
+      Serial.println("No capturo estados");
+      delay(1000);
+  }
 }
 
 void sensorTempHum(){

@@ -45,7 +45,7 @@ void prunningTemp(double temperature,double humedad){
   }
   temperature = avgTemp/num;
   humedad = avgHum/num;
-  Serial.print(" Prom Temperatura = ");
+  Serial.print("Prom Temperatura = ");
   Serial.print(temperature);
   Serial.print("°C Prom Humedad = ");
   Serial.print(humedad);
